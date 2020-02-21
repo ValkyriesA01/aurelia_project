@@ -1,0 +1,84 @@
+<template>
+<div class="container">
+	<!-- <div class="jumbotron">
+		<h1>${heading}</h1>
+		<form submit.trigger="addTodo()">
+			<div class="form-group">
+				<div class="form-group">
+					<input type="text" class="form-control" value.bind="todoDescription">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" disabled.bind="!todoDescription">Add Todo</button>
+				</div>
+			</div>
+		</form>
+		<ul class="list-group">
+			<li css="display: ${todo.description ? 'block' : 'none'}" class="list-group-item" repeat.for="todo of todos">
+				<input type="checkbox" checked.bind="todo.done">
+				<span css="text-decoration: ${todo.done ? 'line-through' : 'none'}">
+					${todo.description}
+				</span>
+				<button class="btn btn-danger" click.trigger="removeTodo(todo)">Remove</button>
+			</li>
+		</ul>
+	</div> -->
+
+	<require from="./date-format"></require>
+	<div class="jumbotron" style="margin-top:40px;">
+		<h1>${heading}</h1>
+		<form submit.trigger="addItem()">
+			<div class="form-group">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Brand</span>
+					</div>
+					<input id="brand" type="text" class="form-control" value.bind="items.brand">
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Content</span>
+					</div>
+					<input id="content" type="text" class="form-control" value.bind="items.content">
+				</div>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Quantity</span>
+					</div>
+					<input id="quantity" type="number" class="form-control" value.bind="items.quantity">
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Add Item</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="row">
+		<div repeat.for="item of items" class="col-sm-6" css="display: ${item.id ? 'block' : 'none'}" style="margin-bottom:20px;">
+			<div class="card bg-light">
+				<div class="card-header">
+					<h5>[${item.id}] ${item.brand}</h5>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">${item.content}</h5>
+					<p class="card-text">Quantity: ${item.quantity}</p>
+					<p class="card-text">${item.country}</p>
+
+					<!-- <p if.bind="item.date_received=='Invalid date'" class="card-text">Receipt date: TOTO</p>
+					<p if.bin="item.date_received!='Invalid date'" class="card-text">Receipt date: ${item.date_received|dateFormat:'DD/MM/YYYY H:mm:ss'}</p>
+
+					<p if.bind="item.date_sent=='Invalid date'" class="card-text">Dispatch date: TOTO</p>
+					<p if.bind="item.date_sent!='Invalid date'" class="card-text">Dispatch date: ${item.date_sent|dateFormat:'DD/MM/YYYY H:mm:ss'}</p> -->
+
+
+					<p class="card-text">Receipt date: ${item.date_received|dateFormat:'DD/MM/YYYY H:mm:ss'}</p>
+					<p css="display: ${item.date_sent ? 'block' : 'none'}" class="card-text">Dispatch date: ${item.date_sent|dateFormat:'DD/MM/YYYY H:mm:ss'}</p>
+				
+					<button type="button" class="btn btn-success" click.trigger="travelItem('receipt')">Confirm receipt</button>
+					<button type="button" class="btn btn-primary" click.trigger="travelItem('dispatch')">Confirm dispatch</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</template>
